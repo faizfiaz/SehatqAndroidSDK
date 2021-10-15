@@ -90,20 +90,16 @@ class SehatqButton : AppCompatButton {
     private fun createDrawable(): Drawable {
         //Create the drawable based on button type
         val buttonDrawable = GradientDrawable()
-        println(mButtonType)
         when(mButtonType) {
             "primary" -> {
-                mButtonColor = resources.getColor(R.color.blue)
                 this.setTextColor(resources.getColor(R.color.white))
                 isBorderAvailable = false
             }
             "secondary" -> {
-                mButtonColor = resources.getColor(R.color.white)
                 this.setTextColor(resources.getColor(R.color.sea))
                 isBorderAvailable = true
             }
             else -> {
-                mButtonColor = resources.getColor(R.color.blue)
                 this.setTextColor(resources.getColor(R.color.white))
                 isBorderAvailable = false
             }
@@ -130,6 +126,16 @@ class SehatqButton : AppCompatButton {
         } else {
             this.setBackgroundDrawable(background)
         }
+    }
+
+    fun setButtonColor(colorId: Int) {
+        mButtonColor = colorId
+        refresh()
+    }
+
+    fun setButtonType(type: String) {
+        mButtonType = type
+        refresh()
     }
 
     @SuppressLint("ClickableViewAccessibility")

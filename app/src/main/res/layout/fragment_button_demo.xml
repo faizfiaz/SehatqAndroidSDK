@@ -1,90 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ButtonDemoFragment">
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_10"
+    tools:context=".components.ButtonDemoFragment">
 
     <com.sehatq.designlibrary.SehatqButton
         android:id="@+id/btn_sehatq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_10"
-        android:enabled="true"
         android:padding="@dimen/dimen_10"
+        android:layout_gravity="center_horizontal"
         android:stateListAnimator="@null"
         android:text="@string/sehatq_button_primary"
-        android:textAllCaps="false"
-        app:buttonType="primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAllCaps="false" />
 
-    <com.sehatq.designlibrary.SehatqButton
-        android:id="@+id/btn_sehatq_shadow"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_2"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:background="@color/black" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="@dimen/dimen_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_10"
-        android:elevation="@dimen/dimen_4"
-        android:enabled="true"
-        android:padding="@dimen/dimen_10"
-        android:stateListAnimator="@null"
-        android:text="@string/sehatq_button_shadow"
-        android:textAllCaps="false"
-        app:buttonType="primary"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_sehatq"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_sehatq"
-        app:layout_constraintTop_toTopOf="@+id/btn_sehatq" />
+        android:text="Button Color"/>
 
-    <com.sehatq.designlibrary.SehatqButton
-        android:id="@+id/btn_sehatq_secondary"
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_button_color"
+        android:layout_marginTop="@dimen/dimen_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="@dimen/dimen_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_10"
-        android:enabled="true"
-        android:padding="@dimen/dimen_10"
-        android:stateListAnimator="@null"
-        android:text="@string/sehatq_button_secondary"
-        android:textAllCaps="false"
-        app:buttonType="secondary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sehatq" />
+        android:text="Button Type"/>
 
-    <com.sehatq.designlibrary.SehatqButton
-        android:id="@+id/btn_sehatq_secondary_shadow"
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_button_type"
+        android:layout_marginTop="@dimen/dimen_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_button_enable"
+        android:layout_marginTop="@dimen/dimen_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_10"
-        android:elevation="@dimen/dimen_4"
-        android:enabled="true"
-        android:padding="@dimen/dimen_10"
-        android:stateListAnimator="@null"
-        android:text="@string/sehatq_button_shadow"
-        android:textAllCaps="false"
-        app:buttonType="secondary"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_sehatq_secondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_sehatq_secondary"
-        app:layout_constraintTop_toTopOf="@+id/btn_sehatq_secondary" />
+        android:checked="true"
+        android:text="Enable Button"/>
 
-    <com.sehatq.designlibrary.SehatqButton
-        android:id="@+id/btn_sehatq_disabled"
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_button_shadow"
+        android:layout_marginTop="@dimen/dimen_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_10"
-        android:enabled="false"
-        android:padding="@dimen/dimen_10"
-        android:stateListAnimator="@null"
-        android:text="@string/sehatq_button_disabled"
-        android:textAllCaps="false"
-        app:buttonType="primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sehatq_secondary" />
+        android:text="Shadow Button"/>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
