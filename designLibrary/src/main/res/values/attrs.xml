@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 2019. PT SehatQ Harsana Emedika - All Rights Reserved
+  -->
+
+<resources>
+    <declare-styleable name="SehatqButton">
+        <attr name="shadowEnabled" format="boolean" />
+        <attr name="buttonColor" format="color" />
+        <attr name="shadowColor" format="color" />
+        <attr name="shadowHeight" format="dimension" />
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="borderEnable" format="boolean" />
+        <attr name="buttonType" format="string" />
+    </declare-styleable>
+</resources>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SehatqAndroidUI</string>
+
+    <!-- region button component -->
+    <string name="sehatq_button_primary">Sehatq Button Primary</string>
+    <string name="sehatq_button_secondary">Sehatq Button Secondary</string>
+    <string name="sehatq_button_shadow">Sehatq Button Shadow</string>
+    <string name="sehatq_button_disabled">Sehatq Button Disabled</string>
+    <!-- end region -->
 </resources>
