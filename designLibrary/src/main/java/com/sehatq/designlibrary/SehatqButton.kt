@@ -50,8 +50,8 @@ class SehatqButton : AppCompatButton {
         parseAttrs(ctx, attrs)
     }
 
+    //Init default values
     private fun init() {
-        //Init default values
         val resources = resources ?: return
         mButtonColor = resources.getColor(R.color.blue)
         mCornerRadius = resources.getDimensionPixelSize(R.dimen.dimen_4)
@@ -60,11 +60,22 @@ class SehatqButton : AppCompatButton {
         isAllCaps = false
     }
 
+    /**
+     * Load and parse custom attributes for values of [isBorderAvailable], [isShadowAvailable],
+     * [mPaddingVertical], [mPaddingHorizontal], [mButtonColor], [mButtonType], [mCornerRadius]
+     *
+     * @attr [R.styleable.SehatqButton_android_paddingHorizontal]
+     * @attr [R.styleable.SehatqButton_android_paddingVertical]
+     * @attr [R.styleable.SehatqButton_borderEnable]
+     * @attr [R.styleable.SehatqButton_shadowEnable]
+     * @attr [R.styleable.SehatqButton_buttonColor]
+     * @attr [R.styleable.SehatqButton_buttonType]
+     * @attr [R.styleable.SehatqButton_cornerRadius]
+     */
     private fun parseAttrs(
         context: Context,
         attrs: AttributeSet
     ) {
-        //Load from custom attributes
         val typedArray =
             context.theme.obtainStyledAttributes(attrs, R.styleable.SehatqButton, 0, 0)
         for (i in 0 until typedArray.indexCount) {
@@ -76,14 +87,23 @@ class SehatqButton : AppCompatButton {
                     isShadowAvailable = typedArray.getBoolean(attr, true) //Default is true
                 }
                 R.styleable.SehatqButton_android_paddingVertical -> {
-                    mPaddingVertical = typedArray.getDimensionPixelSize(attr, resources.getDimensionPixelSize(R.dimen.dimen_16))
+                    mPaddingVertical = typedArray.getDimensionPixelSize(
+                        attr,
+                        resources.getDimensionPixelSize(R.dimen.dimen_16)
+                    ) //Default is 16dp
                 }
                 R.styleable.SehatqButton_android_paddingHorizontal -> {
-                    mPaddingHorizontal = typedArray.getDimensionPixelSize(attr, resources.getDimensionPixelSize(R.dimen.dimen_10))
+                    mPaddingHorizontal = typedArray.getDimensionPixelSize(
+                        attr,
+                        resources.getDimensionPixelSize(R.dimen.dimen_10)
+                    ) //Default is 10dp
                 }
                 R.styleable.SehatqButton_buttonColor -> {
                     mButtonColor =
-                        typedArray.getColor(attr, resources.getColor(R.color.blue))
+                        typedArray.getColor(
+                            attr,
+                            resources.getColor(R.color.blue)
+                        ) //Default is color blue
                 }
                 R.styleable.SehatqButton_buttonType -> {
                     mButtonType = typedArray.getString(attr).toString()
@@ -93,34 +113,41 @@ class SehatqButton : AppCompatButton {
                         typedArray.getDimensionPixelSize(
                             attr,
                             resources.getDimensionPixelSize(R.dimen.dimen_4)
-                        )
+                        ) //Default is 4dp
                 }
             }
         }
         typedArray.recycle()
     }
 
-    //Update the button background by using Drawables
+    /**
+     * Refresh the button  by updating its background using [updateBackground] with drawable
+     * [buttonBackgroundDrawable] with the new attributes values.
+     * Set Padding by the values of [mPaddingHorizontal] [mPaddingVertical]
+     */
     private fun refresh() {
-        setPadding(mPaddingHorizontal, mPaddingVertical, mPaddingHorizontal, mPaddingVertical)
+        this.setPadding(mPaddingHorizontal, mPaddingVertical, mPaddingHorizontal, mPaddingVertical)
         buttonBackgroundDrawable = createDrawable()
         updateBackground(buttonBackgroundDrawable)
     }
 
+    /**
+     * Create the drawable based on button's custom attributes of
+     * [mButtonType] [mButtonColor] [isBorderAvailable] [isShadowAvailable]
+     */
     private fun createDrawable(): Drawable {
-        //Create the drawable based on button's custom attributes
         val buttonDrawable = GradientDrawable()
-        when(mButtonType) {
+        when (mButtonType) {
             "primary" -> {
-                setTextColor(resources.getColor(R.color.white))
+                this.setTextColor(resources.getColor(R.color.white))
                 isBorderAvailable = false
             }
             "secondary" -> {
-                setTextColor(resources.getColor(R.color.sea))
+                this.setTextColor(resources.getColor(R.color.sea))
                 isBorderAvailable = true
             }
             else -> {
-                setTextColor(resources.getColor(R.color.white))
+                this.setTextColor(resources.getColor(R.color.white))
                 isBorderAvailable = false
             }
         }
@@ -128,7 +155,7 @@ class SehatqButton : AppCompatButton {
         //Handle disabled button's view
         if (!isEnabled) {
             mButtonColor = resources.getColor(R.color.alto)
-            setTextColor(resources.getColor(R.color.white))
+            this.setTextColor(resources.getColor(R.color.white))
             isBorderAvailable = false
         }
         buttonDrawable.setColor(mButtonColor)
@@ -144,42 +171,57 @@ class SehatqButton : AppCompatButton {
         return buttonDrawable
     }
 
-    //Set button background
+    /**
+     * Update the background drawable of this button.
+     *
+     * @param background receive Drawable to apply with its attributes.
+     */
     private fun updateBackground(background: Drawable?) {
         if (background == null) return
         this.background = background
     }
 
-    //Set button main color
+    /**
+     * Set the color of this button.
+     *
+     * @param colorId receives color resource ID.
+     */
     fun setButtonColor(colorId: Int) {
         mButtonColor = colorId
         refresh()
     }
 
-    //Set button type
+    /**
+     * Set the type / variant of this button to determine this button style.
+     *
+     * @param type receives types ( primary / secondary ).
+     */
     fun setButtonType(type: String) {
         mButtonType = type
         refresh()
     }
 
-    //Set state enable / disable shadow for button
+    /**
+     * Set the shadow state of this button.
+     *
+     * @param enabled True if this button is shadowed, false otherwise.
+     */
     fun enableButtonShadow(enabled: Boolean) {
         isShadowAvailable = enabled
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             if (enabled) {
-                elevation = resources.getDimension(R.dimen.dimen_8)
+                this.elevation = resources.getDimension(R.dimen.dimen_8)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    outlineAmbientShadowColor = mButtonColor
-                    outlineSpotShadowColor = mButtonColor
+                    this.outlineAmbientShadowColor = mButtonColor
+                    this.outlineSpotShadowColor = mButtonColor
                 }
-            }
-            else
-                elevation = 0.0f
+            } else
+                this.elevation = 0.0f
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (isEnabled)
+        if (this.isEnabled)
             when (event?.action) {
                 //motion of pressing down button
                 MotionEvent.ACTION_DOWN -> {
