@@ -6,6 +6,8 @@
     <declare-styleable name="SehatqButton">
         <attr name="buttonColor" format="color" />
         <attr name="cornerRadius" format="dimension" />
+        <attr name="android:paddingVertical" format="dimension" />
+        <attr name="android:paddingHorizontal" format="dimension" />
         <attr name="borderEnable" format="boolean" />
         <attr name="shadowEnable" format="boolean" />
         <attr name="buttonType" format="string" />

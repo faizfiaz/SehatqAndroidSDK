@@ -8,7 +8,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
 import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -25,6 +24,8 @@ class SehatqButton : AppCompatButton {
     private var mButtonColor = 0
     private var mButtonType: String? = "primary"
     private var mCornerRadius = 0
+    private var mPaddingVertical = 0
+    private var mPaddingHorizontal = 0
     private var isBorderAvailable = false
     private var isShadowAvailable = false
 
@@ -54,6 +55,9 @@ class SehatqButton : AppCompatButton {
         val resources = resources ?: return
         mButtonColor = resources.getColor(R.color.blue)
         mCornerRadius = resources.getDimensionPixelSize(R.dimen.dimen_4)
+        mPaddingHorizontal = resources.getDimensionPixelSize(R.dimen.dimen_16)
+        mPaddingVertical = resources.getDimensionPixelSize(R.dimen.dimen_10)
+        isAllCaps = false
     }
 
     private fun parseAttrs(
@@ -70,6 +74,12 @@ class SehatqButton : AppCompatButton {
                 }
                 R.styleable.SehatqButton_shadowEnable -> {
                     isShadowAvailable = typedArray.getBoolean(attr, true) //Default is true
+                }
+                R.styleable.SehatqButton_android_paddingVertical -> {
+                    mPaddingVertical = typedArray.getDimensionPixelSize(attr, resources.getDimensionPixelSize(R.dimen.dimen_16))
+                }
+                R.styleable.SehatqButton_android_paddingHorizontal -> {
+                    mPaddingHorizontal = typedArray.getDimensionPixelSize(attr, resources.getDimensionPixelSize(R.dimen.dimen_10))
                 }
                 R.styleable.SehatqButton_buttonColor -> {
                     mButtonColor =
@@ -92,6 +102,7 @@ class SehatqButton : AppCompatButton {
 
     //Update the button background by using Drawables
     private fun refresh() {
+        setPadding(mPaddingHorizontal, mPaddingVertical, mPaddingHorizontal, mPaddingVertical)
         buttonBackgroundDrawable = createDrawable()
         updateBackground(buttonBackgroundDrawable)
     }
@@ -101,23 +112,23 @@ class SehatqButton : AppCompatButton {
         val buttonDrawable = GradientDrawable()
         when(mButtonType) {
             "primary" -> {
-                this.setTextColor(resources.getColor(R.color.white))
+                setTextColor(resources.getColor(R.color.white))
                 isBorderAvailable = false
             }
             "secondary" -> {
-                this.setTextColor(resources.getColor(R.color.sea))
+                setTextColor(resources.getColor(R.color.sea))
                 isBorderAvailable = true
             }
             else -> {
-                this.setTextColor(resources.getColor(R.color.white))
+                setTextColor(resources.getColor(R.color.white))
                 isBorderAvailable = false
             }
         }
 
         //Handle disabled button's view
-        if (!this.isEnabled) {
+        if (!isEnabled) {
             mButtonColor = resources.getColor(R.color.alto)
-            this.setTextColor(resources.getColor(R.color.white))
+            setTextColor(resources.getColor(R.color.white))
             isBorderAvailable = false
         }
         buttonDrawable.setColor(mButtonColor)
@@ -156,19 +167,19 @@ class SehatqButton : AppCompatButton {
         isShadowAvailable = enabled
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             if (enabled) {
-                this.elevation = resources.getDimension(R.dimen.dimen_8)
+                elevation = resources.getDimension(R.dimen.dimen_8)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    this.outlineAmbientShadowColor = mButtonColor
-                    this.outlineSpotShadowColor = mButtonColor
+                    outlineAmbientShadowColor = mButtonColor
+                    outlineSpotShadowColor = mButtonColor
                 }
             }
             else
-                this.elevation = 0.0f
+                elevation = 0.0f
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (this.isEnabled)
+        if (isEnabled)
             when (event?.action) {
                 //motion of pressing down button
                 MotionEvent.ACTION_DOWN -> {
