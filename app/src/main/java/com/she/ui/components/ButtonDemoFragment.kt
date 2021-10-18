@@ -109,6 +109,7 @@ class ButtonDemoFragment : Fragment() {
 
         //handle checkbox to show / hide shadow on button
         binding.cbButtonShadow.setOnCheckedChangeListener { _, isChecked ->
+
             binding.btnSehatq.enableButtonShadow(isChecked)
         }
     }

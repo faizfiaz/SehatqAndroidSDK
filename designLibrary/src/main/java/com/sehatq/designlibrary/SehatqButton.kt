@@ -26,6 +26,7 @@ class SehatqButton : AppCompatButton {
     private var mButtonType: String? = "primary"
     private var mCornerRadius = 0
     private var isBorderAvailable = false
+    private var isShadowAvailable = false
 
     //Background drawable
     private var buttonBackgroundDrawable: Drawable? = null
@@ -66,6 +67,9 @@ class SehatqButton : AppCompatButton {
             when (val attr = typedArray.getIndex(i)) {
                 R.styleable.SehatqButton_borderEnable -> {
                     isBorderAvailable = typedArray.getBoolean(attr, true) //Default is true
+                }
+                R.styleable.SehatqButton_shadowEnable -> {
+                    isShadowAvailable = typedArray.getBoolean(attr, true) //Default is true
                 }
                 R.styleable.SehatqButton_buttonColor -> {
                     mButtonColor =
@@ -123,6 +127,9 @@ class SehatqButton : AppCompatButton {
         if (isBorderAvailable)
             buttonDrawable.setStroke(4, resources.getColor(R.color.blue))
 
+        //Handle if shadow is available then apply the elevation
+        enableButtonShadow(isShadowAvailable)
+
         return buttonDrawable
     }
 
@@ -146,6 +153,7 @@ class SehatqButton : AppCompatButton {
 
     //Set state enable / disable shadow for button
     fun enableButtonShadow(enabled: Boolean) {
+        isShadowAvailable = enabled
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             if (enabled) {
                 this.elevation = resources.getDimension(R.dimen.dimen_8)
