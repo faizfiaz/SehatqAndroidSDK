@@ -12,6 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.she.ui.components.ButtonDemoFragment
 import com.she.ui.databinding.FragmentDemoListBinding
 
+/**
+ * Project sehatq-android-ui.
+ *
+ * Created by Aldrich_W on 18/10/21.
+ */
 class DemoListFragment : Fragment(), FragmentNavigation {
 
     lateinit var demoListAdapter: DemoListAdapter
@@ -42,7 +47,12 @@ class DemoListFragment : Fragment(), FragmentNavigation {
             arrayListOf(SEHATQ_BUTTON)
         ) { demoName ->
             when (demoName) {
-                SEHATQ_BUTTON -> navigateToFragment(ButtonDemoFragment(), true, this.requireActivity(), R.id.main_container)
+                SEHATQ_BUTTON -> navigateToFragment(
+                    ButtonDemoFragment(),
+                    true,
+                    this.requireActivity(),
+                    R.id.main_container
+                )
                 else -> println("ELSE")
             }
         }

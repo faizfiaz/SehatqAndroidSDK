@@ -14,7 +14,11 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatButton
 
-
+/**
+ * Project sehatq-android-ui.
+ *
+ * Created by Aldrich_W on 18/10/21.
+ */
 class SehatqButton : AppCompatButton {
 
     //Custom values
@@ -82,13 +86,14 @@ class SehatqButton : AppCompatButton {
         typedArray.recycle()
     }
 
+    //Update the button background by using Drawables
     private fun refresh() {
         buttonBackgroundDrawable = createDrawable()
         updateBackground(buttonBackgroundDrawable)
     }
 
     private fun createDrawable(): Drawable {
-        //Create the drawable based on button type
+        //Create the drawable based on button's custom attributes
         val buttonDrawable = GradientDrawable()
         when(mButtonType) {
             "primary" -> {
@@ -104,38 +109,53 @@ class SehatqButton : AppCompatButton {
                 isBorderAvailable = false
             }
         }
+
+        //Handle disabled button's view
         if (!this.isEnabled) {
             mButtonColor = resources.getColor(R.color.alto)
             this.setTextColor(resources.getColor(R.color.white))
             isBorderAvailable = false
         }
-        buttonDrawable.setColor(mButtonColor)  // Changes this drawbale to use a single color instead of a gradient
+        buttonDrawable.setColor(mButtonColor)
         buttonDrawable.cornerRadius = mCornerRadius.toFloat()
 
+        //Handle if border is available then apply the stroke
         if (isBorderAvailable)
             buttonDrawable.setStroke(4, resources.getColor(R.color.blue))
 
         return buttonDrawable
     }
 
+    //Set button background
     private fun updateBackground(background: Drawable?) {
         if (background == null) return
-        //Set button background
-        if (Build.VERSION.SDK_INT >= 16) {
-            this.background = background
-        } else {
-            this.setBackgroundDrawable(background)
-        }
+        this.background = background
     }
 
+    //Set button main color
     fun setButtonColor(colorId: Int) {
         mButtonColor = colorId
         refresh()
     }
 
+    //Set button type
     fun setButtonType(type: String) {
         mButtonType = type
         refresh()
+    }
+
+    //Set state enable / disable shadow for button
+    fun enableButtonShadow(enabled: Boolean) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            if (enabled) {
+                this.elevation = resources.getDimension(R.dimen.dimen_8)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    this.outlineAmbientShadowColor = mButtonColor
+                    this.outlineSpotShadowColor = mButtonColor
+                }
+            }
+            else
+                this.elevation = 0.0f
     }
 
     @SuppressLint("ClickableViewAccessibility")

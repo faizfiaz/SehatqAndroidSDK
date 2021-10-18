@@ -10,12 +10,18 @@ import android.widget.ArrayAdapter
 import com.she.ui.R
 import com.she.ui.databinding.FragmentButtonDemoBinding
 
+/**
+ * Project sehatq-android-ui.
+ *
+ * Created by Aldrich_W on 18/10/21.
+ */
 class ButtonDemoFragment : Fragment() {
     private var _binding: FragmentButtonDemoBinding? = null
     private val binding get() = _binding!!
 
     private val buttonTypeList = listOf(PRIMARY, SECONDARY)
     private val buttonColorList = listOf(BLUE, WHITE, ORANGE)
+
     private var currentButtonColor = BLUE
     private var currentButtonType = PRIMARY
 
@@ -31,54 +37,79 @@ class ButtonDemoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //handle spinner for applying button type
-        val spinnerTypeAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, buttonTypeList)
+        val spinnerTypeAdapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, buttonTypeList)
         spinnerTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerButtonType.adapter = spinnerTypeAdapter
-        binding.spinnerButtonType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterV: AdapterView<*>?, v: View?, position: Int, id: Long) {
-                binding.btnSehatq.setButtonType(buttonTypeList[position])
-                currentButtonType = buttonTypeList[position]
-            }
+        binding.spinnerButtonType.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    adapterV: AdapterView<*>?,
+                    v: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    binding.btnSehatq.setButtonType(buttonTypeList[position])
+                    currentButtonType = buttonTypeList[position]
+                }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //If needed
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    //If needed
+                }
             }
-        }
 
         //handle spinner for applying button color
-        val spinnerColorAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, buttonColorList)
+        val spinnerColorAdapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, buttonColorList)
         spinnerColorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerButtonColor.adapter = spinnerColorAdapter
-        binding.spinnerButtonColor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(adapterV: AdapterView<*>?, v: View?, position: Int, id: Long) {
-                when(buttonColorList[position]) {
-                    BLUE -> { binding.btnSehatq.setButtonColor(resources.getColor(R.color.blue)) }
-                    WHITE -> { binding.btnSehatq.setButtonColor(resources.getColor(R.color.white)) }
-                    ORANGE -> { binding.btnSehatq.setButtonColor(resources.getColor(R.color.orange)) }
+        binding.spinnerButtonColor.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    adapterV: AdapterView<*>?,
+                    v: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    when (buttonColorList[position]) {
+                        BLUE -> {
+                            binding.btnSehatq.setButtonColor(resources.getColor(R.color.blue))
+                        }
+                        WHITE -> {
+                            binding.btnSehatq.setButtonColor(resources.getColor(R.color.white))
+                        }
+                        ORANGE -> {
+                            binding.btnSehatq.setButtonColor(resources.getColor(R.color.orange))
+                        }
+                    }
+                    currentButtonColor = buttonColorList[position]
                 }
-                currentButtonColor = buttonColorList[position]
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    //If needed
+                }
             }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //If needed
-            }
-        }
-
+        //handle checkbox to enable / disable button
         binding.cbButtonEnable.setOnCheckedChangeListener { _, isChecked ->
             binding.btnSehatq.isEnabled = isChecked
             binding.btnSehatq.setButtonType(currentButtonType)
             when (currentButtonColor) {
-                BLUE -> { binding.btnSehatq.setButtonColor(resources.getColor(R.color.blue)) }
-                WHITE -> { binding.btnSehatq.setButtonColor(resources.getColor(R.color.white)) }
-                ORANGE -> { binding.btnSehatq.setButtonColor(resources.getColor(R.color.orange)) }
+                BLUE -> {
+                    binding.btnSehatq.setButtonColor(resources.getColor(R.color.blue))
+                }
+                WHITE -> {
+                    binding.btnSehatq.setButtonColor(resources.getColor(R.color.white))
+                }
+                ORANGE -> {
+                    binding.btnSehatq.setButtonColor(resources.getColor(R.color.orange))
+                }
             }
         }
 
+        //handle checkbox to show / hide shadow on button
         binding.cbButtonShadow.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked)
-                binding.btnSehatq.elevation = resources.getDimension(R.dimen.dimen_4)
-            else
-                binding.btnSehatq.elevation = 0.0f
+            binding.btnSehatq.enableButtonShadow(isChecked)
         }
     }
 

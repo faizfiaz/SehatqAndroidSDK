@@ -6,5 +6,9 @@
     <string name="sehatq_button_secondary">Sehatq Button Secondary</string>
     <string name="sehatq_button_shadow">Sehatq Button Shadow</string>
     <string name="sehatq_button_disabled">Sehatq Button Disabled</string>
+    <string name="button_color">Button Color</string>
+    <string name="button_type">Button Type</string>
+    <string name="enable_button">Enable Button</string>
+    <string name="shadow_button">Shadow Button</string>
     <!-- end region -->
 </resources>
