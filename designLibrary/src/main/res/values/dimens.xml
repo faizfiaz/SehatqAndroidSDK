@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019. PT SehatQ Harsana Emedika - All Rights Reserved
+  -->
+
+<resources>
+    <dimen name="dimen_2">2dp</dimen>
+    <dimen name="dimen_4">4dp</dimen>
+    <dimen name="dimen_8">8dp</dimen>
+    <dimen name="dimen_10">10dp</dimen>
+    <dimen name="dimen_16">16dp</dimen>
+
+    <!--textSize-->
+    <dimen name="font_15">15sp</dimen>
+
+</resources>
