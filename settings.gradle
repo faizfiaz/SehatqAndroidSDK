@@ -3,9 +3,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "SehatqAndroidUI"
+rootProject.name = "SehatqAndroidSDK"
 include ':app'
-include ':designLibrary'
+include ':sdk'

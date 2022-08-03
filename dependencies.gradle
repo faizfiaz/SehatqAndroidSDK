@@ -1,0 +1,24 @@
+apply from: 'dependencies_version.gradle'
+
+ext {
+    android_library = [
+            androidx_core_ktx               : "androidx.core:core-ktx:$core_ktx_version",
+            androidx_appcompat              : "androidx.appcompat:appcompat:$appcompat_version",
+            material                        : "com.google.android.material:material:$material_version",
+
+    ]
+
+    coroutine_library = [
+            coroutine_android               : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version",
+            coroutine_test                  : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_version"
+    ]
+
+    retrofit_library = [
+            retrofit                        : "com.squareup.retrofit2:retrofit:$retrofit_version",
+            retrofit_coroutine_adapter      : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutine_adapter_version",
+            retrofit_moshi_converter        : "com.squareup.retrofit2:converter-moshi:$moshi_converter_version",
+            okhttp_logging_interceptor      : "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+    ]
+
+    koin_android_library                    = "io.insert-koin:koin-android:$koin_version"
+}
