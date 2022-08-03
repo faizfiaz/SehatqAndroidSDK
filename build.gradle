@@ -7,13 +7,61 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.4"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.29.0"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
+    apply plugin: 'maven-publish'
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'sehatq-sdk-gradle-dev-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+        }
+        defaults {
+            // Tell the Artifactory Plugin which artifacts should be published to Artifactory.
+            publications('aar')
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'sehatq-sdk-gradle-dev'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+        }
+    }
+}
+
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId 'com.she.sdk' //put here your groupId
+            artifactId 'sehatq-sdk' //put here your artifactId
+            version '0.0.0' //put here your library version
+
+            // Tell maven to prepare the generated "*.aar" file for publishing
+            artifact("$projectDir/sdk/build/outputs/aar/sdk-release.aar")
+        }
+    }
 }
